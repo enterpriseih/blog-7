@@ -38,10 +38,15 @@
   ```
   export GO111MODULE=on  //在任何地方都开启mod
   export GO111MODULE=auto//在除GOPATH之外的地方开启mod
-  
   ```
 
 - mkdir 创建项目目录在GOPATH之外(也可以在GOPATH内创建)
+
+  ```
+  依据GO111MODULE 的值确定
+  ```
+
+  
 
 - 初始化go.mod (.mod文件不能存在)
 
