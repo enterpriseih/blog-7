@@ -15,8 +15,9 @@
   export GOPATH=$HOME/workspace
   export GOBIN=$HOME/workspace/bin
   export PATH=$PATH:$GOROOT/bin #将go配置到系统环境变量中， 启动go
-  ```
-
+  添加到环境变量文件  /etc/profile 中
+```
+  
   
 
 ### 安装goland
