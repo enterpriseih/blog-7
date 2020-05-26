@@ -1,0 +1,9 @@
+### CachePool文件的类组成
+
+```c++
+class CacheConn;				//与redis连接的建立，对redis基本操作的封装，构造函数参									数是CachePool
+class CachePool;				//管理连接的IP和PORT，组合CacheConn；
+class CacheManager;				//组合CachePool和CacheConn，对缓存池和连接进行管理多构造函数私有化， 用来实现单例。只有一个缓存管理类实例。
+
+```
+
