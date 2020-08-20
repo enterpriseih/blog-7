@@ -11,7 +11,7 @@
 
 **函数调用顺序图**
 
-![](../images/ch1-11-init.ditaa.png)
+![](./images/ch1-11-init.ditaa.png)
 
 
 
