@@ -2,6 +2,25 @@
 
 - 查看libevent文档即可
 
+  ```shell
+  $ mkdir build && cd build
+  $ cmake .. # Default to Unix Makefiles
+  $ make
+  $ make verify # Optional
+  ```
+
+
+
+- #### 缺少openssl头文件
+
+  ```shell
+  sudo apt-get install openssl
+  
+  sudo apt-get install libssl-dev
+  ```
+
+  
+
 
 
 ### 解决cmake编译出来的可执行文件没有调试信息（该方法未实验，暂时对cmake不熟悉）
