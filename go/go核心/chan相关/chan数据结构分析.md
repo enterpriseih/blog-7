@@ -1,16 +1,16 @@
 ```go
 /* runtime/chan.go*/
 type hchan struct {
-	qcount   uint           // total data in the queue 当前队列剩余可用元素的数目
+	qcount   uint           // total data in the queue 当前队列已经存储的元素数目
 	dataqsiz uint           // size of the circular queue  环形队列的长度
 	buf      unsafe.Pointer // points to an array of dataqsiz elements
 	elemsize uint16 // 每个元素的大小
 	closed   uint32 // 标识关闭状态
 	elemtype *_type // element type
-	sendx    uint   // send index 往chan中发送 队列尾部发送
-	recvx    uint   // receive index  从chan中读取，队列头部取数据
-	recvq    waitq  // list of recv waiters 等待读消息的协程队列
-	sendq    waitq  // list of send waiters 等待写消息的协程队列 chan缓冲区为nil， 则数据放入sendq队列中，包含被阻塞的goroutine
+	sendx    uint   // send index 往chan中发送 队列尾部发送，channel发送操作处理到的位置
+	recvx    uint   // receive index  从chan中读取，队列头部取数据， channel接收操作处理到的位置
+	recvq    waitq  // list of recv waiters //缓冲区为空时候：等待读消息的协程队列
+	sendq    waitq  // list of send waiters 、、 缓冲区满时：等待写消息的协程队列 chan缓冲区为nil， 则数据放入sendq队列中，包含被阻塞的goroutine
 
 	// lock protects all fields in hchan, as well as several
 	// fields in sudogs blocked on this channel.
@@ -19,7 +19,7 @@ type hchan struct {
 	// (in particular, do not ready a G), as this can deadlock
 	// with stack shrinking.
     // 不允许并发读写，一个管道只允许被一个协程读写
-	lock mutex
+	lock mutex // 线程安全如何实现的：
 }
 ```
 

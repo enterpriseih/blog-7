@@ -12,6 +12,7 @@ type slice struct {
 
 ### slice扩容机制
 
+- append函数调用时候如果容量不够， 发生扩容
 - cap（slice） < 1024 ,新slice扩容为原来2倍
 - cap(slice) ?= 1024, 新slice扩容为原来1.25倍
 - 代码：runtime/slice.go/growslice
@@ -40,3 +41,9 @@ type slice struct {
 ### 切取string
 
 - 切取出来的仍为string， slice支持随机读写， string不可以（实现决定）
+
+#### 空切片和nil切片
+
+- 空切片 make([]int, 0)
+- nil切片 ， var s []int
+- nil切片可以len cap append操作

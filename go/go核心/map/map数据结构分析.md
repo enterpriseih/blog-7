@@ -1,4 +1,4 @@
-#### 对未初始化的map进行写操作会造成panic，但读和删除不会报错
+#### k对未初始化的map进行写操作会造成panic，但读和删除不会报错
 
 #### 从map中取值最好判断key是否存在
 
@@ -83,3 +83,8 @@ type bmap struct {
 - 取出hash值低八位对hmap.B进行取模，计算出数据放在哪个bucket中
 - 将hash值的高八位放在bmap.tophash中，当下次查找数据时候对比直接获取key/value
 - 在rehash过程中，添加元素直接加入新的bucket中，删除元素先从旧的bucket中查找
+
+#### for - range 遍历map
+
+- 每次遍历结果不一致
+- for - range 遍历map时候会使用mapiterinit代替原始的for-range函数，该函数会随机选择一个遍历桶的起始位置
