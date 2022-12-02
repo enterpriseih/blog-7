@@ -41,6 +41,12 @@
   ```bash
   sudo mkdir -p /etc/apt/keyrings
   
+  sudo apt-get install \
+      ca-certificates \
+      curl \
+      gnupg \
+      lsb-release
+  
   curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/debian/gpg |  sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
   ```
 
@@ -104,7 +110,7 @@ EOF
 apt-get update
 # 下载 kubectl，kubeadm以及 kubelet
 # apt-get install -y kubelet kubeadm kubectl 现在会下载最新版本，最新版使用contained
-apt-get install -y kubelet=1.23.6-00 kubeadm=1.23.6-00 kubectl=1.23.6-00
+apt-get install -y kubelet kubeadm kubectl
 ```
 
 
@@ -131,7 +137,7 @@ localAPIEndpoint:
 nodeRegistration:
   criSocket: unix:///var/run/containerd/containerd.sock
   imagePullPolicy: IfNotPresent
-  name: master
+  name: master  # 修改node名称
   taints: null
 ---
 apiServer:
@@ -175,6 +181,8 @@ kubeadm init --config [init.yaml]
 
 ```bash
 kubeadm token create --print-join-command
+
+# node节点执行join命令即可，不用再init一次
 ```
 
 
