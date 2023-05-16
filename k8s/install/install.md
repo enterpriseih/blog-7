@@ -238,3 +238,52 @@ journalctl -xeu kubelet
 
 
 
+## 问题集合
+
+### kubeamd reset 卡在下面报错
+
+```bash
+.....
+Unmounting mounted directories in "/var/lib/kubelet"
+
+#解决办法呢
+rm /etc/cni/net.d/*
+```
+
+
+
+### calico node 
+
+```yaml
+# 报错信息
+calico/node is not ready: BIRD is not ready: BGP not established with
+
+#解决办法
+1、kubectl set env daemonset/calico-node -n calico-system IP_AUTODETECTION_METHOD=skip-interface=eth0 
+
+2、修改custom-resource.yaml
+
+- name: IP_AUTODETECTION_METHOD
+  value: "interface=eth33"
+
+apiVersion: operator.tigera.io/v1
+kind: Installation
+metadata:
+  name: default
+spec:
+  # Configures Calico networking.
+  calicoNetwork:
+    # Note: The ipPools section cannot be modified post-install.
+    ipPools:
+    - blockSize: 26
+      cidr: 192.168.0.0/16
+      encapsulation: VXLANCrossSubnet
+      natOutgoing: Enabled
+      nodeSelector: all()
+      #新增
+    nodeAddressAutodetectionV4:
+      interface: ens33
+
+
+```
+
